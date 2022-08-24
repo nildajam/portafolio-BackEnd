@@ -13,6 +13,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>na</name>
     <description>Port Web NA</description>
+    <!-- <properties>
+        <java.version>17</java.version>
+    </properties> -->
     <properties>
         <java.version>1.8</java.version>
     </properties>

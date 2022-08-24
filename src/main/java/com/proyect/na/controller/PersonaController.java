@@ -5,6 +5,7 @@ import com.proyect.na.service.IPersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins ="https://frontendna.web.app")    
+
 public class PersonaController {
     
     @Autowired
@@ -28,11 +31,11 @@ public class PersonaController {
         return "La persona fue creada con exito";        
     }
     
-    @GetMapping("/")
+    /**@GetMapping("/")
     @ResponseBody
     public String index() {
         return "Hola mundo";
-    }
+    }**/
 
     @GetMapping("/ver/personas")
     @ResponseBody
@@ -48,7 +51,7 @@ public class PersonaController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("persona/editar/{id}")
+    @PutMapping("/persona/editar/{id}")
     public Persona editPersona(@PathVariable Long id,
                                @RequestParam("nombre") String nuevoNombre,
                                @RequestParam("apellido") String nuevoApellido) {
