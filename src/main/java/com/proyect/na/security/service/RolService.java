@@ -1,9 +1,10 @@
 
 package com.proyect.na.security.service;
 
-import com.proyect.na.security.entity.Rol;
+ import com.proyect.na.security.entity.Rol;
 import com.proyect.na.security.enums.RolNombre;
 import com.proyect.na.security.repository.IRolRepository;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class RolService {
 
     public void save(Rol rol) {
         irolRepository.save(rol);
+    }
+     
+    public List<Rol> verRoles() {
+        return irolRepository.findAll();
     }
 
 }

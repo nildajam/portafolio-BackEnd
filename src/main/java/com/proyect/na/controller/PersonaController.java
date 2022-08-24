@@ -1,6 +1,9 @@
 package com.proyect.na.controller;
 
 import com.proyect.na.model.Persona;
+import com.proyect.na.security.entity.Rol;
+import com.proyect.na.security.enums.RolNombre;
+import com.proyect.na.security.service.RolService;
 import com.proyect.na.service.IPersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +20,42 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins ="https://frontendna.web.app")    
+@CrossOrigin(origins = "https://frontendna.web.app")
 
 public class PersonaController {
-    
+
     @Autowired
     private IPersonaService persoServ;
+
+    @Autowired
+    private RolService rolService;
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/new/persona")
     public String agregarPersona(@RequestBody Persona pers) {
         persoServ.crearPersona(pers);
-        return "La persona fue creada con exito";        
+        return "La persona fue creada con exito";
     }
-    
+
     @GetMapping("/")
     @ResponseBody
     public String index() {
         return "Hola mundo";
+    }
+
+    @GetMapping("/roles")
+    @ResponseBody
+    public String addRoles() {
+        rolService.save(new Rol(RolNombre.ROLE_USER));
+        rolService.save(new Rol(RolNombre.ROLE_ADMIN));
+
+        return "Listo";
+    }
+
+    @GetMapping("/ver/roles")
+    @ResponseBody
+    public List<Rol> viewRoles() {
+        return rolService.verRoles();
     }
 
     @GetMapping("/ver/personas")
@@ -53,8 +74,8 @@ public class PersonaController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/persona/editar/{id}")
     public Persona editPersona(@PathVariable Long id,
-                               @RequestParam("nombre") String nuevoNombre,
-                               @RequestParam("apellido") String nuevoApellido) {
+            @RequestParam("nombre") String nuevoNombre,
+            @RequestParam("apellido") String nuevoApellido) {
 
         Persona perso = persoServ.buscarPersona(id);
 
