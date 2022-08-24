@@ -27,6 +27,12 @@ public class PersonaController {
         persoServ.crearPersona(pers);
         return "La persona fue creada con exito";        
     }
+    
+    @GetMapping("/")
+    @ResponseBody
+    public String index() {
+        return "Hola mundo";
+    }
 
     @GetMapping("/ver/personas")
     @ResponseBody
