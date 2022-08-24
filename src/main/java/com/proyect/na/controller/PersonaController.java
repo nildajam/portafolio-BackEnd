@@ -31,11 +31,11 @@ public class PersonaController {
         return "La persona fue creada con exito";        
     }
     
-    /**@GetMapping("/")
+    @GetMapping("/")
     @ResponseBody
     public String index() {
         return "Hola mundo";
-    }**/
+    }
 
     @GetMapping("/ver/personas")
     @ResponseBody
